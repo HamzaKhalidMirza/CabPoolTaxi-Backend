@@ -113,7 +113,18 @@ exports.getCurrentDriverRequests = factory.getAll(Request);
 
 exports.getRequest = factory.getOne(Request);
 exports.getAllRequests = factory.getAll(Request);
-exports.createRequest = factory.createOne(Request);
+exports.createRequest =   catchAsync(async (req, res, next) => {
+  const doc = await Request.create(req.body);
+  console.log(req);
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      data: doc
+    }
+  });
+});
+
 
 exports.updateRequest = factory.updateOne(Request);
 exports.deleteRequest = factory.deleteOne(Request);
