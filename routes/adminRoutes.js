@@ -61,6 +61,7 @@ router
         adminController.uploadUserPhoto,
         adminController.resizeUserPhoto,
         adminController.setPhotoData,
+        adminController.setUsername,
         adminController.createUser
     );
 

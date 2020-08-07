@@ -89,7 +89,11 @@ exports.filterData = catchAsync(async (req, res, next) => {
 exports.setPhotoData = catchAsync(async (req, res, next) => {
 
     if (req.file) {
-        req.body.photoAvatar = `${process.env.HOST}/img/clients/${req.file.filename}`;
+        if (process.env.NODE_ENV === 'development') {
+            req.body.photoAvatar = `${process.env.LOCAL_HOST}/img/clients/${req.file.filename}`;
+        } else {
+            req.body.photoAvatar = `${process.env.HOST}/img/clients/${req.file.filename}`;
+        }
         req.body.orignalPhoto = req.file.originalname.split('.')[0];
         req.body.photoAvatarExt = path.extname(req.file.originalname);
     }

@@ -72,6 +72,7 @@ router
         driverController.uploadUserPhoto,
         driverController.resizeUserPhoto,
         driverController.setPhotoData,
+        driverController.setUsername,
         driverController.createUser
     );
 

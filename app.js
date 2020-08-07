@@ -10,23 +10,10 @@ const xss = require('xss-clean');
 const compression = require('compression');
 const accessControls = require('./middlewares/access-controls');
 
-const AppError = require('./utils/appError');
-const globalErrorHandler = require('./controllers/errorController');
-const adminRouter = require('./routes/adminRoutes');
-const clientRouter = require('./routes/clientRoutes');
-const driverRouter = require('./routes/driverRoutes');
-const vehicleRouter = require('./routes/vehicleRoutes');
-const tripRouter = require('./routes/tripRoutes');
-const requestRouter = require('./routes/requestRoutes');
-const bookingRouter = require('./routes/bookingRoutes');
-// const paymentRouter = require('./routes/paymentRoutes');
-// const reviewRouter = require('./routes/reviewRoutes');
-
 // Start express app
 const app = express();
 
 app.enable('trust proxy');
-
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -65,27 +52,5 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   console.log('-'+process.env.NODE_ENV.trim()+'-');
 }
-
-/*
-  Routes
-*/
-app.use('/api/v1/admins', adminRouter);
-app.use('/api/v1/clients', clientRouter);
-app.use('/api/v1/drivers', driverRouter);
-app.use('/api/v1/vehicles', vehicleRouter);
-app.use('/api/v1/trips', tripRouter);
-app.use('/api/v1/requests', requestRouter);
-app.use('/api/v1/bookings', bookingRouter);
-// app.use('/api/v1/payments', paymentRouter);
-// app.use('/api/v1/reviews', reviewRouter);
-
-app.all('*', (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-});
-
-/*
-  Global Error Handler/Controller
-*/
-app.use(globalErrorHandler);
 
 module.exports = app;

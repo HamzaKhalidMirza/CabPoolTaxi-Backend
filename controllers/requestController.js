@@ -61,6 +61,8 @@ exports.rejectRequest = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+  const io = req.io;
+  const requestEvent = doc.client.id + '-clientReceivedRequest';
 
   if (!doc) {
     return next(new AppError("No document found with that ID", 404));
@@ -72,6 +74,7 @@ exports.rejectRequest = catchAsync(async (req, res, next) => {
       data: doc,
     },
   });
+  io.emit(requestEvent, doc);
 });
 
 exports.approvedRequest = catchAsync(async (req, res, next) => {
@@ -80,6 +83,8 @@ exports.approvedRequest = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+  const io = req.io;
+  const requestEvent = doc.client.id + '-clientReceivedRequest';
 
   if (!doc) {
     return next(new AppError("No document found with that ID", 404));
@@ -104,6 +109,7 @@ exports.approvedRequest = catchAsync(async (req, res, next) => {
       data: doc,
     },
   });
+  io.emit(requestEvent, doc);
 });
 
 exports.getSpecificClientAllRequests = factory.getAll(Request);
@@ -115,7 +121,8 @@ exports.getRequest = factory.getOne(Request);
 exports.getAllRequests = factory.getAll(Request);
 exports.createRequest =   catchAsync(async (req, res, next) => {
   const doc = await Request.create(req.body);
-  console.log(req);
+  const io = req.io;
+  const requestEvent = doc.driver + '-driverReceivedRequest';
 
   res.status(201).json({
     status: 'success',
@@ -123,6 +130,7 @@ exports.createRequest =   catchAsync(async (req, res, next) => {
       data: doc
     }
   });
+  io.emit(requestEvent, doc);
 });
 
 

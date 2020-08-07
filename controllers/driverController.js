@@ -84,10 +84,25 @@ exports.filterData = catchAsync(async (req, res, next) => {
 exports.setPhotoData = catchAsync(async (req, res, next) => {
 
     if (req.file) {
-        req.body.photoAvatar = `${process.env.HOST}/img/drivers/${req.file.filename}`;
+        if (process.env.NODE_ENV === 'development') {
+            req.body.photoAvatar = `${process.env.LOCAL_HOST}/img/drivers/${req.file.filename}`;
+        } else {
+            req.body.photoAvatar = `${process.env.HOST}/img/drivers/${req.file.filename}`;
+        }
         req.body.orignalPhoto = req.file.originalname.split('.')[0];
         req.body.photoAvatarExt = path.extname(req.file.originalname);
     }
+    next();
+});
+
+exports.setUsername = catchAsync(async (req, res, next) => {
+    const { email } = req.body;
+    let username = email.slice(0, email.indexOf("@"));
+    username = username.slice(0, username.indexOf("."));
+    req.body.username = username.toUpperCase();
+    req.body.fName = "No First Name";
+    req.body.lName = "No Last Name";
+
     next();
 });
 
