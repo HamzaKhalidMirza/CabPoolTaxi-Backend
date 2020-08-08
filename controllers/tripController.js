@@ -27,7 +27,7 @@ exports.setDriverId = async (req, res, next) => {
 exports.setVehicleId = catchAsync( async (req, res, next) => {
   const doc = await Driver.findById(req.body.driver).populate('vehicle');
   
-  if (!doc) {
+  if (doc.vehicle.length === 0) {
     return next(new AppError('No Vehicle found with that ID', 404));
   }
   req.body.vehicle = doc.vehicle[0].id;
