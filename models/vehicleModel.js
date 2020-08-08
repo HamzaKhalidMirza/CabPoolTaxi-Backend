@@ -30,7 +30,7 @@ const vehicleSchema = new mongoose.Schema(
         },
         milage: {
             type: Number,
-            required: [true, "Please provide vehicle milage"]
+            // required: [true, "Please provide vehicle milage"]
         },
         baseFare: {
             type: Number,
