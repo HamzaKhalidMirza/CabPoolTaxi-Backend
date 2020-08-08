@@ -22,6 +22,12 @@ const handleDuplicateFieldsDB = err => {
   return new AppError(message, 400);
 };
 
+handleTwilioMaxRequests = err => {
+
+  const message = 'Max Attemps Reached.';
+  return new AppError(message, 400);
+};
+
 const handleValidationErrorDB = err => {
   const errors = Object.values(err.errors).map(el => el.message);
 
@@ -69,9 +75,9 @@ const sendErrorProd = (err, req, res) => {
     console.error('ERROR 💥', err);
     // 2) Send generic message
     return res.status(500).json({
-      status: 'error',
-      message: 'Something went very wrong!'
-    });
+      status: err.statusCode,
+      message: err.message
+  });
   }
 
   // B) RENDERED WEBSITE
@@ -105,6 +111,7 @@ module.exports = (err, req, res, next) => {
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
     if (error.code === 11000) error = handleDuplicateFieldsDB(error);
+    if (error.code === 20249) error = handleTwilioMaxRequests(error);
     if (error.name === 'ValidationError') error = handleValidationErrorDB(error);
     if (error.name === 'JsonWebTokenError') error = handleJWTError();
     if (error.name === 'TokenExpiredError') error = handleJWTExpiredError();
