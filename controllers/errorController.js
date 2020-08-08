@@ -17,6 +17,8 @@ const handleDuplicateFieldsDB = err => {
     message = `Duplicate field value: cnic. Please use another value!`;
   } else if(err.keyPattern.licenseNo) {
     message = `Duplicate field value: license. Please use another value!`;
+  } else if(err.keyPattern.registrationNo) {
+    message = `Duplicate field value: registrationNo. Please use another value!`;
   }
 
   return new AppError(message, 400);
