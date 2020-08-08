@@ -9,19 +9,17 @@ const adminSchema = new mongoose.Schema(
             type: String,
             trim: true,
             maxlength: [30, 'Username must be less or equal then 30 characters.'],
-            minlength: [2, 'Username must be more or equal then 8 characters.']
+            minlength: [3, 'Username must be more or equal then 8 characters.']
         },
         fName: {
             type: String,
             trim: true,
             maxlength: [20, 'FName must be less or equal then 20 characters.'],
-            minlength: [2, 'FName must be more or equal then 8 characters.']
         },
         lName: {
             type: String,
             trim: true,
             maxlength: [20, 'LName must be less or equal then 20 characters.'],
-            minlength: [2, 'LName must be more or equal then 8 characters.']
         },
         email: {
             type: String,

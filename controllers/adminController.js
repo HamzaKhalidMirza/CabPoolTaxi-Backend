@@ -127,6 +127,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
 // Login Related Controllers
 exports.login = authController.adminLogin(Admin);
+exports.getVerificationCode = authController.getVerificationCode;
+exports.verifyCode = authController.verifyCode;
 
 // Phone Code Forgot Password Related Controllers
 exports.forgotPassword = authController.getVerificationCode;

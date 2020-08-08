@@ -54,6 +54,9 @@ router.patch(
 // Administration Related Routes
 router.use(authController.restrictTo('lead-admin'));
 
+router.post('/getVerificationCode', adminController.getVerificationCode);
+router.post('/verifyCode', adminController.verifyCode);
+
 router
     .route('/')
     .get(adminController.getAllUsers)
