@@ -50,7 +50,7 @@ const vehicleSchema = new mongoose.Schema(
         type: {
             type: String,
             enum: {
-                values: ['mini', 'moto', 'bike'],
+                values: ['mini', 'moto'],
                 message: 'Type is either: mini, moto or bike'
             }
         },
