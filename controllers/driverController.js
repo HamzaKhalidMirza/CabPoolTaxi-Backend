@@ -90,15 +90,12 @@ next();
 });
 
 exports.setUsername = catchAsync(async (req, res, next) => {
-    const { email } = req.body;
-    let username = email.slice(0, email.indexOf("@"));
-    username = username.slice(0, username.indexOf("."));
-    req.body.username = username.toUpperCase();
-    req.body.fName = "No First Name";
-    req.body.lName = "No Last Name";
-
+    const { username } = req.body;
+    req.body.fName = username.split(" ")[0];
+    req.body.lName = username.split(" ")[1];
+  
     next();
-});
+  });
 
 exports.updateMe = catchAsync(async (req, res, next) => {
     // 1) Create error if user POSTs password data
