@@ -6,9 +6,19 @@ const handleCastErrorDB = err => {
 };
 
 const handleDuplicateFieldsDB = err => {
-  const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
+  const value = err.message.match(/(["'])(\\?.)*?\1/)[0];
 
-  const message = `Duplicate field value: ${value}. Please use another value!`;
+  let message = '';
+  if(err.keyPattern.email) {
+    message = `Duplicate field value: email. Please use another value!`;
+  } else if(err.keyPattern.phone) {
+    message = `Duplicate field value: phone. Please use another value!`;
+  } else if(err.keyPattern.cnicNo) {
+    message = `Duplicate field value: cnic. Please use another value!`;
+  } else if(err.keyPattern.licenseNo) {
+    message = `Duplicate field value: license. Please use another value!`;
+  }
+
   return new AppError(message, 400);
 };
 
@@ -50,7 +60,7 @@ const sendErrorProd = (err, req, res) => {
     // A) Operational, trusted error: send message to client
     if (err.isOperational) {
       return res.status(err.statusCode).json({
-        status: err.status,
+        status: err.statusCode,
         message: err.message
       });
     }
