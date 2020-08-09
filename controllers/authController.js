@@ -103,7 +103,7 @@ exports.signup = (Model) =>
   catchAsync(async (req, res, next) => {
     const { phone, email, password, countryCode } = req.body;
     let username = email.slice(0, email.indexOf("@"));
-    username = username.slice(0, username.indexOf("."));
+    // username = username.slice(0, username.indexOf("."));
     username = username.toUpperCase();
     fName = "No First Name";
     lName = "No Last Name";
