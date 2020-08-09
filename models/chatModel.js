@@ -16,8 +16,6 @@ const chatSchema = new mongoose.Schema(
     senderName: {
       type: String,
       trim: true,
-      maxlength: [30, "Username must be less or equal then 30 characters."],
-      minlength: [5, "Username must be more or equal then 8 characters."],
       required: [true, "Chat must have a SenderName."],
     },
     senderId: {
@@ -35,8 +33,6 @@ const chatSchema = new mongoose.Schema(
     receiverName: {
       type: String,
       trim: true,
-      maxlength: [30, "Username must be less or equal then 30 characters."],
-      minlength: [5, "Username must be more or equal then 8 characters."],
       required: [true, "Chat must have a ReceiverName."],
     },
     receiverId: {
