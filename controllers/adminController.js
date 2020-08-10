@@ -7,22 +7,22 @@ const catchAsync = require("./../utils/catchAsync");
 const multer = require("multer");
 const sharp = require("sharp");
 
-const multerStorage = multer.memoryStorage();
+// const multerStorage = multer.memoryStorage();
 
-const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image")) {
-    cb(null, true);
-  } else {
-    cb(new AppError("Not an image! Please upload only images.", 400), false);
-  }
-};
+// const multerFilter = (req, file, cb) => {
+//   if (file.mimetype.startsWith("image")) {
+//     cb(null, true);
+//   } else {
+//     cb(new AppError("Not an image! Please upload only images.", 400), false);
+//   }
+// };
 
-const upload = multer({
-  storage: multerStorage,
-  fileFilter: multerFilter,
-});
+// const upload = multer({
+//   storage: multerStorage,
+//   fileFilter: multerFilter,
+// });
 
-exports.uploadUserPhoto = upload.single("photoAvatar");
+// exports.uploadUserPhoto = upload.single("photoAvatar");
 
 exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   if (!req.file) return next();
@@ -39,6 +39,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 });
 
 exports.setUsername = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const { username } = req.body;
   req.body.fName = username.split(" ")[0];
   req.body.lName = username.split(" ")[1];

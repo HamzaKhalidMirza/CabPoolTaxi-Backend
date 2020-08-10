@@ -44,7 +44,7 @@ router.patch(
     '/updateMe',
     authController.restrictTo('lead-admin','assistant-admin'),
     adminController.generatePasswordError,
-    adminController.uploadUserPhoto,
+    // adminController.uploadUserPhoto,
     adminController.resizeUserPhoto,
     adminController.filterData,
     adminController.setPhotoData,
@@ -61,9 +61,9 @@ router
     .route('/')
     .get(adminController.getAllUsers)
     .post(
-        adminController.uploadUserPhoto,
-        adminController.resizeUserPhoto,
-        adminController.setPhotoData,
+        // adminController.uploadUserPhoto,
+        // adminController.resizeUserPhoto,
+        // adminController.setPhotoData,
         adminController.setUsername,
         adminController.createUser
     );
@@ -73,7 +73,7 @@ router
     .get(adminController.getUser)
     .patch(
         adminController.generatePasswordError,
-        adminController.uploadUserPhoto,
+        // adminController.uploadUserPhoto,
         adminController.resizeUserPhoto,
         adminController.filterData,
         adminController.setPhotoData,
