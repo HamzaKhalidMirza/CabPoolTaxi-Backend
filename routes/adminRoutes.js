@@ -11,8 +11,6 @@ router.post('/login', adminController.login);
 router.post('/forgotPassword', adminController.forgotPassword);
 router.post('/verifyForgotPasswordCode', adminController.verifyForgotPasswordCode);
 router.patch('/resetPassword', adminController.resetPassword);
-// router.post('/forgotPassword', clientController.forgotPassword);
-// router.patch('/resetPassword/:token', clientController.resetPassword);
 
 // Protect all routes after this middleware
 router.use(authController.protect);
@@ -44,10 +42,7 @@ router.patch(
     '/updateMe',
     authController.restrictTo('lead-admin','assistant-admin'),
     adminController.generatePasswordError,
-    // adminController.uploadUserPhoto,
-    adminController.resizeUserPhoto,
     adminController.filterData,
-    adminController.setPhotoData,
     adminController.updateMe
 );
 
@@ -61,9 +56,6 @@ router
     .route('/')
     .get(adminController.getAllUsers)
     .post(
-        // adminController.uploadUserPhoto,
-        // adminController.resizeUserPhoto,
-        // adminController.setPhotoData,
         adminController.setUsername,
         adminController.createUser
     );
@@ -73,10 +65,7 @@ router
     .get(adminController.getUser)
     .patch(
         adminController.generatePasswordError,
-        // adminController.uploadUserPhoto,
-        adminController.resizeUserPhoto,
         adminController.filterData,
-        adminController.setPhotoData,
         adminController.updateUser
     )
     .delete(adminController.deleteUser);

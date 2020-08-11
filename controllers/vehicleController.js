@@ -3,41 +3,6 @@ const Vehicle = require("../models/vehicleModel");
 const factory = require("./handlerFactory");
 const AppError = require("./../utils/appError");
 const catchAsync = require("./../utils/catchAsync");
-const multer = require("multer");
-const sharp = require("sharp");
-
-const multerStorage = multer.memoryStorage();
-
-const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image")) {
-    cb(null, true);
-  } else {
-    cb(new AppError("Not an image! Please upload only images.", 400), false);
-  }
-};
-
-const upload = multer({
-  storage: multerStorage,
-  fileFilter: multerFilter,
-});
-
-exports.uploadUserPhoto = upload.single("vehicleAvatar");
-
-exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
-  if (!req.file) return next();
-
-  req.file.filename = `vehicle-${
-    req.file.originalname.split(".")[0]
-  }-${Date.now()}.jpeg`;
-  console.log(req.file.filename);
-  await sharp(req.file.buffer)
-    .resize(500, 500)
-    .toFormat("jpeg")
-    .jpeg({ quality: 90 })
-    .toFile(`public/img/vehicles/${req.file.filename}`);
-
-  next();
-});
 
 exports.setDriverId = async (req, res, next) => {
   // Allow nested routes
@@ -83,19 +48,6 @@ exports.filterData = catchAsync(async (req, res, next) => {
 
   req.body = filteredBody;
 
-  next();
-});
-
-exports.setPhotoData = catchAsync(async (req, res, next) => {
-  if (req.file) {
-    if (process.env.NODE_ENV === "development") {
-      req.body.vehicleAvatar = `${process.env.LOCAL_HOST}/img/vehicles/${req.file.filename}`;
-    } else {
-      req.body.vehicleAvatar = `${process.env.HOST}/img/vehicles/${req.file.filename}`;
-    }
-    req.body.orignalVehicle = req.file.originalname.split(".")[0];
-    req.body.vehicleAvatarExt = path.extname(req.file.originalname);
-  }
   next();
 });
 

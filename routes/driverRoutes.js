@@ -15,8 +15,6 @@ router.post('/login', driverController.login);
 router.post('/forgotPassword', driverController.forgotPassword);
 router.post('/verifyForgotPasswordCode', driverController.verifyForgotPasswordCode);
 router.patch('/resetPassword', driverController.resetPassword);
-// router.post('/forgotPassword', clientController.forgotPassword);
-// router.patch('/resetPassword/:token', clientController.resetPassword);
 
 // Protect all routes after this middleware
 router.use(authController.protect);
@@ -48,10 +46,7 @@ router.patch(
     '/updateMe',
     authController.restrictTo('driver'),
     driverController.generatePasswordError,
-    driverController.uploadUserPhoto,
-    driverController.resizeUserPhoto,
     driverController.filterData,
-    driverController.setPhotoData,
     driverController.updateMe
 );
 
@@ -69,9 +64,6 @@ router
     .route('/')
     .get(driverController.getAllUsers)
     .post(
-        driverController.uploadUserPhoto,
-        driverController.resizeUserPhoto,
-        driverController.setPhotoData,
         driverController.setUsername,
         driverController.createUser
     );
@@ -81,10 +73,7 @@ router
     .get(driverController.getUser)
     .patch(
         driverController.generatePasswordError,
-        driverController.uploadUserPhoto,
-        driverController.resizeUserPhoto,
         driverController.filterData,
-        driverController.setPhotoData,
         driverController.updateUser
     )
     .delete(driverController.deleteUser);

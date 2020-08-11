@@ -21,9 +21,6 @@ router
     .get(vehicleController.getAllVehicles)
     .post(
         vehicleController.setDriverId,
-        vehicleController.uploadUserPhoto,
-        vehicleController.resizeUserPhoto,
-        vehicleController.setPhotoData,
         vehicleController.createVehicle
     );
 
@@ -31,10 +28,7 @@ router
     .route('/:id')
     .get(vehicleController.getVehicle)
     .patch(
-        vehicleController.uploadUserPhoto,
-        vehicleController.resizeUserPhoto,
         vehicleController.filterData,
-        vehicleController.setPhotoData,
         vehicleController.updateVehicle
     )
     .delete(vehicleController.deleteVehicle);
