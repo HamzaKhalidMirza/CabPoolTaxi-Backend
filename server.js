@@ -56,8 +56,10 @@ app.use((req, res, next) => {
 /*
   Sockets
 */
-require("./sockets/clientSocket")(io);
-require("./sockets/driverSocket")(io);
+require("./sockets/clientChatSocket")(io);
+require("./sockets/driverChatSocket")(io);
+require("./sockets/clientTripSocket")(io);
+require("./sockets/driverTripSocket")(io);
 
 /*
   Routes

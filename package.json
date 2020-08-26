@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "start:dev": "nodemon server.js",
-    "start:prod": "SET NODE_ENV=production & nodemon server.js"
+    "start:dev": "nodemon --max-old-space-size=8192 server.js",
+    "start:prod": "SET NODE_ENV=production & nodemon --max-old-space-size=8192 server.js"
   },
   "author": "",
   "license": "ISC",

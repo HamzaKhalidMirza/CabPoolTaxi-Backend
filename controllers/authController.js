@@ -1,5 +1,5 @@
 const Client = require("./../models/clientModel");
-const Driver = require('./../models/driverModel');
+const Driver = require("./../models/driverModel");
 const Admin = require("./../models/adminModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
