@@ -42,7 +42,7 @@ router.patch(
     authController.restrictTo('driver'),
     authController.updatePassword
 );
-router.patch(
+router.post(
     '/updateMe',
     authController.restrictTo('driver'),
     driverController.generatePasswordError,
