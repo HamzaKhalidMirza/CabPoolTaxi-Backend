@@ -42,7 +42,6 @@ router.patch(
     '/updateMe',
     authController.restrictTo('lead-admin','assistant-admin'),
     adminController.generatePasswordError,
-    adminController.filterData,
     adminController.updateMe
 );
 
@@ -65,7 +64,6 @@ router
     .get(adminController.getUser)
     .patch(
         adminController.generatePasswordError,
-        adminController.filterData,
         adminController.updateUser
     )
     .delete(adminController.deleteUser);

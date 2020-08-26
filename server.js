@@ -60,6 +60,7 @@ require("./sockets/clientChatSocket")(io);
 require("./sockets/driverChatSocket")(io);
 require("./sockets/clientTripSocket")(io);
 require("./sockets/driverTripSocket")(io);
+require("./sockets/reportSocket")(io);
 
 /*
   Routes

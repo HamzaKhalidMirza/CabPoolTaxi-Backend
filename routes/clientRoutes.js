@@ -62,7 +62,6 @@ router.patch(
     '/updateMe',
     authController.restrictTo('client'),
     clientController.generatePasswordError,
-    clientController.filterData,
     clientController.updateMe
 );
 
@@ -79,7 +78,6 @@ router
     .get(clientController.getUser)
     .patch(
         clientController.generatePasswordError,
-        clientController.filterData,
         clientController.updateUser
     )
     .delete(clientController.deleteUser);

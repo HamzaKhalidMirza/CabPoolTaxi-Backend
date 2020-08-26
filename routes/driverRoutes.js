@@ -46,7 +46,6 @@ router.patch(
     '/updateMe',
     authController.restrictTo('driver'),
     driverController.generatePasswordError,
-    driverController.filterData,
     driverController.updateMe
 );
 
@@ -73,7 +72,6 @@ router
     .get(driverController.getUser)
     .patch(
         driverController.generatePasswordError,
-        driverController.filterData,
         driverController.updateUser
     )
     .delete(driverController.deleteUser);
