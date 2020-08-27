@@ -107,10 +107,10 @@ bookingSchema.pre(/^find/, function (next) {
       select: `-estimatedTime -cancellationReason -ratingsAverage -ratingsQuantity
         -createdAt`,
     })
-    // .populate({
-    //   path: "payment",
-    //   select: "-createdAt -isPaid",
-    // });
+    .populate({
+      path: "payment",
+      select: "-createdAt -isPaid",
+    });
   next();
 });
 
