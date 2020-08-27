@@ -33,7 +33,7 @@ const vehicleRouter = require("./routes/vehicleRoutes");
 const tripRouter = require("./routes/tripRoutes");
 const requestRouter = require("./routes/requestRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
-// const paymentRouter = require('./routes/paymentRoutes');
+const paymentRouter = require('./routes/paymentRoutes');
 // const reviewRouter = require('./routes/reviewRoutes');
 
 const port = process.env.PORT || 3000;
@@ -72,7 +72,7 @@ app.use("/api/v1/vehicles", vehicleRouter);
 app.use("/api/v1/trips", tripRouter);
 app.use("/api/v1/requests", requestRouter);
 app.use("/api/v1/bookings", bookingRouter);
-// app.use('/api/v1/payments', paymentRouter);
+app.use('/api/v1/payments', paymentRouter);
 // app.use('/api/v1/reviews', reviewRouter);
 
 app.all("*", (req, res, next) => {

@@ -39,6 +39,7 @@ module.exports = function (io) {
                 tripRatingsQuantity;
             }
           }
+          console.log(tripRatingsAverage, tripRatingsQuantity);
           const tripDoc = await Trip.findById(trip.id);
           if (tripDoc) {
             tripDoc.ratingsAverage = tripRatingsAverage;
@@ -56,6 +57,7 @@ module.exports = function (io) {
                 tripRatingsQuantity;
             }
           }
+          console.log(tripRatingsAverage, tripRatingsQuantity);
           const driverDoc = await Driver.findById(driver.id);
           if (driverDoc) {
             driverDoc.ratingsAverage = tripRatingsAverage;

@@ -174,6 +174,7 @@ module.exports = function (io) {
                    parseInt(clientReviewDoc[i].rating)) / tripRatingsQuantity;
                 }
               }
+              console.log(tripRatingsAverage, tripRatingsQuantity);
               const clientDoc = await Client.findById(client.id);
               if(clientDoc) {
                 clientDoc.ratingsAverage = tripRatingsAverage;
