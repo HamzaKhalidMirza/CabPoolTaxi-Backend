@@ -64,6 +64,7 @@ router
     .get(adminController.getUser)
     .patch(
         adminController.generatePasswordError,
+        adminController.setUsername,
         adminController.updateUser
     )
     .delete(adminController.deleteUser);

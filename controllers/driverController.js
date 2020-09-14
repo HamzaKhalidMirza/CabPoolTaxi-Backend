@@ -51,8 +51,10 @@ exports.filterData = catchAsync(async (req, res, next) => {
 exports.setUsername = catchAsync(async (req, res, next) => {
     const { username } = req.body;
     req.body.fName = username.split(" ")[0];
-    req.body.lName = username.split(" ")[1];
-  
+    if(username.split(" ")[1]) {
+        req.body.lName = username.split(" ")[1];
+    }
+      
     next();
   });
 
