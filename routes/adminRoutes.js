@@ -51,6 +51,8 @@ router.use(authController.restrictTo('lead-admin'));
 router.post('/getVerificationCode', adminController.getVerificationCode);
 router.post('/verifyCode', adminController.verifyCode);
 
+router.get('/getDashboardData', adminController.getDashboardData);
+
 router
     .route('/')
     .get(adminController.getAllUsers)

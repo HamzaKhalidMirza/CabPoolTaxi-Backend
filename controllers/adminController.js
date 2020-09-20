@@ -1,5 +1,7 @@
-const path = require("path");
 const Admin = require("../models/adminModel");
+const Driver = require("../models/driverModel");
+const Client = require("../models/clientModel");
+const Payment = require("../models/paymentModel");
 const authController = require("./authController");
 const factory = require("./handlerFactory");
 const AppError = require("./../utils/appError");
@@ -82,6 +84,32 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     data: {
       user: updatedUser,
     },
+  });
+});
+
+exports.getDashboardData = catchAsync(async (req, res, next) => {
+
+  const driversCount = await Driver.count();
+  const clientsCount = await Client.count();
+
+  const monthlyPaymentData = await Payment.aggregate([
+    {$project: {method: 1, totalFare: 1, totalPaid: 1, month: {$month: '$createdAt'}}},
+    {$match: {month: 9}}
+  ]);
+
+  const yearlyPaymentData = await Payment.aggregate([
+    {$project: {method: 1, totalFare: 1, totalPaid: 1, year: {$year: '$createdAt'}}},
+    {$match: {year: 2020}}
+  ]);
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      driversCount,
+      clientsCount,
+      monthlyPaymentData,
+      yearlyPaymentData
+    }
   });
 });
 
