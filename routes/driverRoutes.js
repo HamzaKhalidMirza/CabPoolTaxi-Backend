@@ -72,6 +72,7 @@ router
     .get(driverController.getUser)
     .patch(
         driverController.generatePasswordError,
+        driverController.setUsername,
         driverController.updateUser
     )
     .delete(driverController.deleteUser);

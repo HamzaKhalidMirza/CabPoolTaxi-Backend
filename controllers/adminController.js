@@ -6,7 +6,6 @@ const AppError = require("./../utils/appError");
 const catchAsync = require("./../utils/catchAsync");
 
 exports.setUsername = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const { username } = req.body;
   req.body.fName = username.split(" ")[0];
   if(username.split(" ")[1]) {
