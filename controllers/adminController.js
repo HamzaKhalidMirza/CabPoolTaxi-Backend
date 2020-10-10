@@ -94,18 +94,37 @@ exports.getDashboardData = catchAsync(async (req, res, next) => {
   const adminsCount = await Admin.count();
 
   const monthlyEarnings = [];
+  const monthlyAdmins = [];
+  const monthlyDrivers = [];
+  const monthlyPassengers = [];
+
   var currentMonth = new Date().getMonth();
 
   for(let i=0; i<=currentMonth; i++) {
     const monthlyPaymentData = await Payment.aggregate([
       {$project: {method: 1, totalFare: 1, totalPaid: 1, month: {$month: '$createdAt'}}},
-      {$match: {month: i}}
+      {$match: {month: i+1}}
+    ]);
+    const monthlyAdminData = await Admin.aggregate([
+      {$project: {month: {$month: '$createdAt'}}},
+      {$match: {month: i+1}}
+    ]);
+    const monthlyDriverData = await Driver.aggregate([
+      {$project: {month: {$month: '$createdAt'}}},
+      {$match: {month: i+1}}
+    ]);
+    const monthlyPassengerData = await Client.aggregate([
+      {$project: {month: {$month: '$createdAt'}}},
+      {$match: {month: i+1}}
     ]);
 
     let earning = 0;
     monthlyPaymentData.forEach(element => {
       earning += element.totalPaid;
     });
+    monthlyAdmins.push(monthlyAdminData.length);
+    monthlyDrivers.push(monthlyDriverData.length);
+    monthlyPassengers.push(monthlyPassengerData.length);
 
     monthlyEarnings.push(earning);
   }
@@ -122,7 +141,10 @@ exports.getDashboardData = catchAsync(async (req, res, next) => {
       driversCount,
       clientsCount,
       monthlyEarnings,
-      yearlyPaymentData
+      yearlyPaymentData,
+      monthlyAdmins,
+      monthlyDrivers,
+      monthlyPassengers
     }
   });
 });
