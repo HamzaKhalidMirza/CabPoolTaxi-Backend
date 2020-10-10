@@ -91,11 +91,24 @@ exports.getDashboardData = catchAsync(async (req, res, next) => {
 
   const driversCount = await Driver.count();
   const clientsCount = await Client.count();
+  const adminsCount = await Admin.count();
 
-  const monthlyPaymentData = await Payment.aggregate([
-    {$project: {method: 1, totalFare: 1, totalPaid: 1, month: {$month: '$createdAt'}}},
-    {$match: {month: 9}}
-  ]);
+  const monthlyEarnings = [];
+  var currentMonth = new Date().getMonth();
+
+  for(let i=0; i<=currentMonth; i++) {
+    const monthlyPaymentData = await Payment.aggregate([
+      {$project: {method: 1, totalFare: 1, totalPaid: 1, month: {$month: '$createdAt'}}},
+      {$match: {month: i}}
+    ]);
+
+    let earning = 0;
+    monthlyPaymentData.forEach(element => {
+      earning += element.totalPaid;
+    });
+
+    monthlyEarnings.push(earning);
+  }
 
   const yearlyPaymentData = await Payment.aggregate([
     {$project: {method: 1, totalFare: 1, totalPaid: 1, year: {$year: '$createdAt'}}},
@@ -105,9 +118,10 @@ exports.getDashboardData = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: {
+      adminsCount,
       driversCount,
       clientsCount,
-      monthlyPaymentData,
+      monthlyEarnings,
       yearlyPaymentData
     }
   });
